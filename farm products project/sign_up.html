@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="icon" href="./icons/farm image.jpg">
+    <style>
+        *{
+            font-size: 25px;
+            font-family: sans-seri;
+            font-weight: 600;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('./Farmer\ page.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .switch-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message, .success-message {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+  
+    <!-- Farmer Login Form -->
+    <div class="container" id="farmer-login">
+        <h2>Farmer Login</h2>
+        <form onsubmit="return verifyFarmer()">
+            <div class="form-group">
+                <label for="farmer-username-login">Username:</label>
+                <input type="text" id="farmer-username-login" required placeholder="username">
+            </div>
+            <div class="form-group">
+                <label for="farmer-password-login">Password:</label>
+                <input type="password" id="farmer-password-login" required placeholder="password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="error-message" id="farmer-error-login"></div>
+        <div class="switch-link">
+            <a href="#" onclick="showFarmerSignup()">Sign up as Farmer</a><br><br>
+            <a href="#" onclick="showBuyerLogin()">Login as Buyer</a>
+        </div>
+    </div>
+
+
+    <!-- Buyer Login Form -->
+    <div class="container hidden" id="buyer-login">
+        <h2>Buyer Login</h2>
+        <form onsubmit="return verifyBuyer()">
+            <div class="form-group">
+                <label for="buyer-username-login">Username:</label>
+                <input type="text" id="buyer-username-login" required placeholder="username">
+            </div>
+            <div class="form-group">
+                <label for="buyer-password-login">Password:</label>
+                <input type="password" id="buyer-password-login" required placeholder="password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="error-message" id="buyer-error-login"></div>
+        <div class="switch-link">
+            <a href="#" onclick="showBuyerSignup()">Sign up as Buyer</a><br><br>
+            <a href="#" onclick="showFarmerLogin()">Login as Farmer</a>
+        </div>
+    </div>
+
+    <!-- Farmer Signup Form -->
+    <div class="container hidden" id="farmer-signup">
+        <h2>Farmer Signup</h2>
+        <form onsubmit="return signupFarmer()">
+            <div class="form-group">
+                <label for="farmer-name">Name:</label>
+                <input type="text" id="farmer-name" required placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="farmer-phone">Phone Number:</label>
+                <input type="text" id="farmer-phone" required placeholder="phone number">
+            </div>
+            <div class="form-group">
+                <label for="farmer-address">Address of Manufacturing:</label>
+                <input type="text" id="farmer-address" required placeholder="address">
+            </div>
+            <div class="form-group">
+                <label for="farmer-username-signup">Username:</label>
+                <input type="text" id="farmer-username-signup" required placeholder="username">
+            </div>
+            <div class="form-group">
+                <label for="farmer-password-signup">Password:</label>
+                <input type="password" id="farmer-password-signup" required placeholder="password">
+            </div>
+            <div class="form-group">
+                <label for="farmer-email">Email ID:</label>
+                <input type="email" id="farmer-email" required placeholder="email">
+            </div>
+            <button type="submit" class="btn">Sign up</button>
+        </form>
+        <div class="error-message" id="farmer-error-signup"></div>
+        <div class="success-message" id="farmer-success-signup"></div>
+        <div class="switch-link">
+            <a href="#" onclick="showFarmerLogin()">Login as Farmer</a><br><br>
+            <a href="#" onclick="showBuyerSignup()">Sign up as Buyer</a>
+        </div>
+    </div>
+
+    <!-- Buyer Signup Form -->
+    <div class="container hidden" id="buyer-signup">
+        <h2>Buyer Signup</h2>
+        <form onsubmit="return signupBuyer()">
+            <div class="form-group">
+                <label for="buyer-name">Name:</label>
+                <input type="text" id="buyer-name" required placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="buyer-phone">Phone Number:</label>
+                <input type="text" id="buyer-phone" required placeholder="phone number">
+            </div>
+            <div class="form-group">
+                <label for="buyer-address">Address:</label>
+                <input type="text" id="buyer-address" required placeholder="address">
+            </div>
+            <div class="form-group">
+                <label for="buyer-username-signup">Username:</label>
+                <input type="text" id="buyer-username-signup" required placeholder="user name">
+            </div>
+            <div class="form-group">
+                <label for="buyer-password-signup">Password:</label>
+                <input type="password" id="buyer-password-signup" required placeholder="password">
+            </div>
+            <div class="form-group">
+                <label for="buyer-email">Email ID:</label>
+                <input type="email" id="buyer-email" required placeholder="email">
+            </div>
+            <button type="submit" class="btn">Sign up</button>
+        </form>
+        <div class="error-message" id="buyer-error-signup"></div>
+        <div class="success-message" id="buyer-success-signup"></div>
+        <div class="switch-link">
+            <a href="#" onclick="showBuyerLogin()">Login as Buyer</a><br><br>
+            <a href="#" onclick="showFarmerSignup()">Sign up as Farmer</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to show Farmer Login Form
+        function showFarmerLogin() {
+            document.getElementById('farmer-login').classList.remove('hidden');
+            document.getElementById('buyer-login').classList.add('hidden');
+            document.getElementById('farmer-signup').classList.add('hidden');
+            document.getElementById('buyer-signup').classList.add('hidden');
+        }
+
+        // Function to show Buyer Login Form
+        function showBuyerLogin() {
+            document.getElementById('buyer-login').classList.remove('hidden');
+            document.getElementById('farmer-login').classList.add('hidden');
+            document.getElementById('farmer-signup').classList.add('hidden');
+            document.getElementById('buyer-signup').classList.add('hidden');
+        }
+
+        // Function to show Farmer Signup Form
+        function showFarmerSignup() {
+            document.getElementById('farmer-signup').classList.remove('hidden');
+            document.getElementById('farmer-login').classList.add('hidden');
+            document.getElementById('buyer-login').classList.add('hidden');
+            document.getElementById('buyer-signup').classList.add('hidden');
+        }
+
+        // Function to show Buyer Signup Form
+        function showBuyerSignup() {
+            document.getElementById('buyer-signup').classList.remove('hidden');
+            document.getElementById('farmer-login').classList.add('hidden');
+            document.getElementById('buyer-login').classList.add('hidden');
+            document.getElementById('farmer-signup').classList.add('hidden');
+        }
+
+        // Predefined users for login
+        const farmers = [
+            { username: 'harini@25', password: '25012005' },
+            { username: 'aravinth@25', password: '25112004' }
+        ];
+
+        const buyers = [
+            { username: 'dinesh@20', password: '20122003' },
+            { username: 'annapoorani@26', password: '26112004' },
+            { username: 'harinee@29', password: '29052004' },
+            { username: 'hinduja@4', password: '04052005' }
+        ];
+
+    // Function to verify farmer login
+function verifyFarmer() {
+    const username = document.getElementById('farmer-username-login').value;
+    const password = document.getElementById('farmer-password-login').value;
+    const error = document.getElementById('farmer-error-login');
+
+    // Check against predefined farmers
+    let user = farmers.find(farmer => farmer.username === username && farmer.password === password);
+
+    // If not found, check against farmers in localStorage
+    if (!user) {
+        const farmersData = JSON.parse(localStorage.getItem('farmers')) || [];
+        user = farmersData.find(farmer => farmer.username === username && farmer.password === password);
+    }
+
+    if (user) {
+        window.location.href = 'index2.html'; // Redirect to index.html
+    } else {
+        error.textContent = 'Invalid username or password.';
+    }
+    return false;
+}
+
+// Function to verify buyer login
+function verifyBuyer() {
+    const username = document.getElementById('buyer-username-login').value;
+    const password = document.getElementById('buyer-password-login').value;
+    const error = document.getElementById('buyer-error-login');
+
+    // Check against predefined buyers
+    let user = buyers.find(buyer => buyer.username === username && buyer.password === password);
+
+    // If not found, check against buyers in localStorage
+    if (!user) {
+        const buyersData = JSON.parse(localStorage.getItem('buyers')) || [];
+        user = buyersData.find(buyer => buyer.username === username && buyer.password === password);
+    }
+
+    if (user) {
+        window.location.href = 'index.html'; // Redirect to index.html
+    } else {
+        error.textContent = 'Invalid username or password.';
+    }
+    return false;
+}
+
+// Function to sign up a farmer
+function signupFarmer() {
+    const name = document.getElementById('farmer-name').value;
+    const phone = document.getElementById('farmer-phone').value;
+    const address = document.getElementById('farmer-address').value;
+    const username = document.getElementById('farmer-username-signup').value;
+    const password = document.getElementById('farmer-password-signup').value;
+    const email = document.getElementById('farmer-email').value;
+    const error = document.getElementById('farmer-error-signup');
+    const success = document.getElementById('farmer-success-signup');
+
+    // Get current farmers from localStorage
+    const farmersData = JSON.parse(localStorage.getItem('farmers')) || [];
+
+    // Check if username already exists in predefined or stored farmers
+    if (farmers.some(farmer => farmer.username === username) || farmersData.some(farmer => farmer.username === username)) {
+        error.textContent = 'Username already exists.';
+        return false;
+    }
+
+    // Save the farmer data in localStorage
+    farmersData.push({ name, phone, address, username, password, email });
+    localStorage.setItem('farmers', JSON.stringify(farmersData));
+
+    error.textContent = '';
+    success.textContent = 'Signup successful! Please log in.';
+
+    // Clear form
+    document.getElementById('farmer-signup').reset();
+
+    // Redirect to login after short delay
+    setTimeout(showFarmerLogin, 1500);
+
+    return false;
+}
+
+// Function to sign up a buyer
+function signupBuyer() {
+    const name = document.getElementById('buyer-name').value;
+    const phone = document.getElementById('buyer-phone').value;
+    const address = document.getElementById('buyer-address').value;
+    const username = document.getElementById('buyer-username-signup').value;
+    const password = document.getElementById('buyer-password-signup').value;
+    const email = document.getElementById('buyer-email').value;
+    const error = document.getElementById('buyer-error-signup');
+    const success = document.getElementById('buyer-success-signup');
+
+    // Get current buyers from localStorage
+    const buyersData = JSON.parse(localStorage.getItem('buyers')) || [];
+
+    // Check if username already exists in predefined or stored buyers
+    if (buyers.some(buyer => buyer.username === username) || buyersData.some(buyer => buyer.username === username)) {
+        error.textContent = 'Username already exists.';
+        return false;
+    }
+
+    // Save the buyer data in localStorage
+    buyersData.push({ name, phone, address, username, password, email });
+    localStorage.setItem('buyers', JSON.stringify(buyersData));
+
+    error.textContent = '';
+    success.textContent = 'Signup successful! Please log in.';
+
+    // Clear form
+    document.getElementById('buyer-signup').reset();
+
+    // Redirect to login after short delay
+    setTimeout(showBuyerLogin, 1500);
+
+    return false;
+}
+
+    </script>
+
+</body>
+</html>

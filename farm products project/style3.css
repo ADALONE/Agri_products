@@ -1,0 +1,115 @@
+.product-image {
+    width: 120px;  /* Set a smaller width */
+    height: 170px;  /* Set a smaller height */
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-success {
+    background-color: #28a745; /* Green background for Buy Now button */
+    color: white; /* White text */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Blue background for Back to Products button */
+    color: white; /* White text */
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+.buy-now-form {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.buy-now-form h1 {
+    text-align: center;
+}
+
+.buy-now-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.buy-now-form input,
+.buy-now-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buy-now-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buy-now-form button:hover {
+    background-color: #218838;
+}
+.orders-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.order-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.order-item button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.order-item button:nth-of-type(1) {
+    background-color: #28a745; /* Green for Accept */
+    color: white;
+}
+
+.order-item button:nth-of-type(2) {
+    background-color: #dc3545; /* Red for Reject */
+    color: white;
+}
+
+.orders-container button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue for Clear All Orders */
+    color: white;
+    cursor: pointer;
+}
+
+.orders-container button:hover {
+    background-color: #0056b3;
+}

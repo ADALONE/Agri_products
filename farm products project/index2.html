@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard</title>
+    <link rel="icon" href="./icons/farm image.jpg">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f7f7f7;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-family: 'Verdana', sans-serif;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #e74c3c;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .main-content h2 {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 28px;
+            color: #34495e;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        form label {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+        }
+
+        form button {
+            background-color: #2980b9;
+            color: #ecf0f1;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Verdana', sans-serif;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #3498db;
+        }
+
+        #productList, #inventoryList {
+            font-family: 'Verdana', sans-serif;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        hr {
+            border: 0;
+            border-top: 2px solid #ecf0f1;
+            margin: 20px 0;
+        }
+
+        /* Logout Button Styles */
+    .logout-btn {
+    background-color: rgb(24, 222, 50);
+    color: #ecf0f1;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: sans-seri;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+    text-align: center;
+    }
+
+    .logout-btn:hover {
+    background-color: rgb(227, 64, 64);
+    }
+
+    </style>
+</head>
+<body>
+    <!-- Side Navigation Menu -->
+    <div class="sidebar">
+        <h2 style="color: chartreuse;">S K Farm's </h2>
+        <ul>
+            <li><a href="#" id="myProduct" style="padding-bottom: 20px;">My Product</a></li>
+            <li><a href="#" id="ordersPayment" style="padding-bottom: 20px;" >Orders & Payment</a></li>
+            <li><a href="#" id="deliveryStatus" style="padding-bottom: 20px;" >Delivery Status</a></li>
+            <li><a href="#" id="viewInventory" style="padding-bottom: 20px;" >View Inventory</a></li>
+        </ul>
+         <!-- Logout Button -->
+      <button class="logout-btn" onclick="logout()">LOG OUT</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- My Product Section -->
+        <section id="productSection" class="content-section">
+            <h2 style="padding-top: 20px;">My Product</h2>
+            <form id="productForm">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required><br><br>
+                <label for="productPricePerKg">Price per Kg:</label>
+                <input type="number" id="productPricePerKg" name="productPricePerKg" required><br><br>
+                <label for="productQuantity">Quantity Available:</label>
+                <input type="number" id="productQuantity" name="productQuantity" required><br><br>
+                <label for="productPhoto">Photo of Product:</label>
+                <input type="file" id="productPhoto" name="productPhoto" accept="image/*" required><br><br>
+                <button type="button" onclick="addOrUpdateProduct()">Add/Update Product</button>
+            </form>
+            <hr>
+            <div id="productList"></div>
+        </section>
+
+        <!-- Orders & Payment Section -->
+        <section id="ordersSection" class="content-section" style="display:none;">
+            <h2>Orders & Payment</h2>
+            <p>Details about orders and payment options.</p>
+            <div id="ordersPaymentList"></div>
+        </section>
+
+        <!-- Delivery Status Section -->
+        <section id="deliverySection" class="content-section" style="display:none;">
+            <h2>Delivery Status</h2>
+            <p>Information on delivery status.</p>
+        </section>
+        
+        <!-- View Inventory Section -->
+        <section id="inventorySection" class="content-section" style="display:none;">
+            <h2>View Inventory</h2>
+            <div id="inventoryList"></div>
+        </section>
+    </div>
+
+    <script src="scripts2.js"></script>
+    <script>function logout() {
+        // Redirect to the sign-up page
+        window.location.href = 'sign_up.html';
+    }
+    </script>
+
+    <script>
+       // Function to load orders for payment
+       function loadOrdersForPayment() {
+            const ordersPaymentList = document.getElementById('ordersPaymentList');
+            const ordersForPayment = JSON.parse(localStorage.getItem('ordersForPayment')) || [];
+
+            if (ordersForPayment.length === 0) {
+                ordersPaymentList.innerHTML = '<p>No orders available for payment.</p>';
+                return;
+            }
+
+            let ordersPaymentHTML = '';
+            ordersForPayment.forEach((order, index) => {
+                ordersPaymentHTML += `
+                    <div class="order">
+                        <h3>Order ${index + 1}</h3>
+                        <p><strong>Name:</strong> ${order.name}</p>
+                        <p><strong>Phone:</strong> ${order.phone}</p>
+                        <p><strong>Email:</strong> ${order.email}</p>
+                        <p><strong>Address:</strong> ${order.address}</p>
+                        <p><strong>Bidding Price:</strong> ₹${order.bidPrice}</p>
+                        <p><strong>Quantity:</strong> ${order.quantity} kg</p>
+                        <p><strong>Delivery Date:</strong> ${order.deliveryDate}</p>
+                        <button onclick="acceptOrder(${index})">Accept</button>
+                        <button onclick="rejectOrder(${index})">Reject</button>
+                    </div>
+                    <hr>`;
+            });
+
+            ordersPaymentList.innerHTML = ordersPaymentHTML;
+        }
+
+        function acceptOrder(index) {
+            alert('Go to payment, please.');
+        }
+
+        function rejectOrder(index) {
+            alert('Order is rejected.');
+            const ordersForPayment = JSON.parse(localStorage.getItem('ordersForPayment')) || [];
+            ordersForPayment.splice(index, 1);
+            localStorage.setItem('ordersForPayment', JSON.stringify(ordersForPayment));
+            loadOrdersForPayment();
+        }
+
+        window.onload = function() {
+            loadOrdersForPayment();
+        }
+
+        function logout() {
+            window.location.href = 'sign_up.html';
+        }
+    </script>
+</body>
+</html>
